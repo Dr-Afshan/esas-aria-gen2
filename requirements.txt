@@ -1,0 +1,26 @@
+# Core
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+scikit-learn>=1.2
+
+# Audio
+librosa>=0.10
+sounddevice>=0.4.6
+
+# PANNs inference
+torch>=2.0
+torchaudio>=2.0
+panns-inference>=0.1.0
+
+# Model comparison (notebook 06)
+transformers>=4.35.0
+
+# Aria Gen 2 VRS reading
+projectaria-tools>=1.3.0
+
+# Live demo display
+pygame>=2.5
+
+# Figures (optional)
+matplotlib>=3.7

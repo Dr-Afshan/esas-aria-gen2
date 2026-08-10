@@ -1,0 +1,12 @@
+{
+  "studio": {
+    "mae": 52.3,
+    "mae_std": 37.5,
+    "within_15": 21.4,
+    "n": 28
+  },
+  "reverberant_baseline": {
+    "mae": 54.1,
+    "within_15": 14.1
+  }
+}
