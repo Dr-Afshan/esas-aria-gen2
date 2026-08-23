@@ -1,0 +1,19 @@
+{
+  "design_total": 120,
+  "found": 120,
+  "missing": [],
+  "pilots_excluded": [
+    "Fire0.vrs",
+    "Fire0_2.vrs",
+    "Fire0_3.vrs",
+    "Fire0_4.vrs",
+    "Horn0.vrs",
+    "Horn0_2.vrs",
+    "Horn0_3.vrs",
+    "Horn0_4.vrs",
+    "Ofire0_4.vrs"
+  ],
+  "unmatched": [],
+  "phase1_analysed": 90,
+  "studio_analysed": 30
+}

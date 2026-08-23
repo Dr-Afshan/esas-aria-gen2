@@ -1,0 +1,152 @@
+{
+  "detection": {
+    "macro_f1": 0.921,
+    "ci_lo": 0.906,
+    "ci_hi": 0.935,
+    "fine_fold_f1": [
+      0.9093,
+      0.9245,
+      0.9181,
+      0.9418,
+      0.911
+    ],
+    "per_tier": {
+      "HIGH": {
+        "P": 0.887,
+        "R": 0.9,
+        "F1": 0.894
+      },
+      "LOW": {
+        "P": 0.955,
+        "R": 0.949,
+        "F1": 0.952
+      },
+      "MEDIUM": {
+        "P": 0.913,
+        "R": 0.921,
+        "F1": 0.917
+      }
+    }
+  },
+  "zeroshot_baseline": {
+    "macro_f1": 0.775,
+    "per_tier_f1": {
+      "HIGH": 0.628,
+      "MEDIUM": 0.817,
+      "LOW": 0.88
+    },
+    "per_fold_f1": [
+      0.7631,
+      0.8315,
+      0.7439,
+      0.761,
+      0.7727
+    ],
+    "wilcoxon_W": 15.0,
+    "wilcoxon_p": 0.03125
+  },
+  "localization": {
+    "phase1": {
+      "n": 90,
+      "MAE": 57.7,
+      "std": 35.5,
+      "within15_pct": 17.8,
+      "per_angle": {
+        "0": {
+          "n": 18,
+          "MAE": 6.8,
+          "within15_pct": 77.8
+        },
+        "45": {
+          "n": 36,
+          "MAE": 48.1,
+          "within15_pct": 5.6
+        },
+        "90": {
+          "n": 36,
+          "MAE": 92.8,
+          "within15_pct": 0.0
+        }
+      },
+      "per_sound": {
+        "car_horn": {
+          "n": 15,
+          "MAE": 55.1
+        },
+        "crying_baby": {
+          "n": 15,
+          "MAE": 58.2
+        },
+        "fire_alarm": {
+          "n": 30,
+          "MAE": 59.5
+        },
+        "phone_ring": {
+          "n": 30,
+          "MAE": 57.0
+        }
+      }
+    },
+    "studio": {
+      "n": 30,
+      "MAE": 56.1,
+      "std": 33.4,
+      "within15_pct": 16.7,
+      "per_angle": {
+        "0": {
+          "n": 6,
+          "MAE": 7.5,
+          "within15_pct": 83.3
+        },
+        "45": {
+          "n": 12,
+          "MAE": 45.3,
+          "within15_pct": 0.0
+        },
+        "90": {
+          "n": 12,
+          "MAE": 91.2,
+          "within15_pct": 0.0
+        }
+      },
+      "per_sound": {
+        "fire_alarm": {
+          "n": 15,
+          "MAE": 57.5
+        },
+        "phone_ring": {
+          "n": 15,
+          "MAE": 54.7
+        }
+      }
+    }
+  },
+  "frontal_phase1": {
+    "n": 18,
+    "MAE": 6.8,
+    "ci": [
+      4.1,
+      9.9
+    ],
+    "within15_pct": 77.8
+  },
+  "manifest": {
+    "design_total": 120,
+    "found": 120,
+    "missing": [],
+    "pilots_excluded": [
+      "Fire0.vrs",
+      "Fire0_2.vrs",
+      "Fire0_3.vrs",
+      "Fire0_4.vrs",
+      "Horn0.vrs",
+      "Horn0_2.vrs",
+      "Horn0_3.vrs",
+      "Horn0_4.vrs",
+      "Ofire0_4.vrs"
+    ],
+    "unmatched": [],
+    "phase1_analysed": 90,
+    "studio_analysed": 30
+  }
+}

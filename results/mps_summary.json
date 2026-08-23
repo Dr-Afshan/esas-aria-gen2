@@ -1,0 +1,11 @@
+{
+  "analysed": 118,
+  "missing": [
+    "ophon90_2",
+    "studio_fire-90_2"
+  ],
+  "valid": 118,
+  "mean_quality": 0.996,
+  "mean_pos_std_mm": 0.42,
+  "mean_yaw_std_deg": 0.159
+}

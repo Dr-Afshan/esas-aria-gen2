@@ -1,0 +1,10 @@
+{
+  "audio_buffering_ms": 80,
+  "panns_mean_ms": 34,
+  "panns_p95_ms": 45,
+  "gcc_mean_ms": 51,
+  "gcc_p95_ms": 56,
+  "measured_total_mean_ms": 165,
+  "measured_total_p95_ms": 181,
+  "note": "alert engine not measured (no runtime script provided); totals exclude it"
+}
