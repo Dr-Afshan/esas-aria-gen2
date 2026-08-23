@@ -1,102 +1,60 @@
-# ESAS — Egocentric Sound Alerting System
+# ESAS — Reproducibility Package
 
-Real-time environmental sound detection and direction estimation for deaf and hard-of-hearing (DHH) users on Meta Project Aria Gen 2 AR glasses.
+Analysis code and results for **ESAS: A Deep Learning-Based Egocentric Environmental Sound Alerting System for Deaf and Hard-of-Hearing Users on Meta Project Aria Gen 2 Glasses**. Every table in the manuscript is reproducible from the notebooks below.
 
----
+## Requirements
 
-## Results
+Python 3.11.
 
-| Metric | Value |
+```
+pip install numpy scipy pandas scikit-learn librosa panns-inference projectaria-tools
+pip install transformers torchaudio timm laion-clap   # only for notebook 06
+```
+
+## Data setup (not included in this repository)
+
+Set `BASE` at the top of each notebook to a folder containing:
+
+- `ESC-50/` — clone of https://github.com/karolpiczak/ESC-50 (detection training/evaluation)
+- `recordings/` — 129 Aria Gen 2 VRS recordings (120 experiment trials + 9 pilots) and their MPS output folders (`mps_*_vrs/`). Not publicly distributed due to hardware-specific acquisition workflows; available from the corresponding author for academic research purposes (see the paper's Data Availability statement).
+- `panns_data/` — PANNs CNN14 checkpoint (downloaded automatically by notebook 01)
+
+The four stimulus sounds played during the acoustic evaluation (fire alarm, telephone ring, crying baby, car horn) were publicly available recordings obtained from online sources.
+
+## Run order
+
+`01 → 02 → 07 → 08 → 09`, plus `06` for the model comparison (~2–3 h on first run; cached afterwards). Notebook `05` is a standalone tool for inspecting the direction estimate of any single VRS recording.
+
+## Notebook → paper mapping
+
+| Notebook | Reproduces |
 |---|---|
-| Detection Macro F1 | 0.921 |
-| Frontal MAE | 5.5 degrees |
-| Overall MAE | 57.6 degrees |
-| System latency | ~480 ms |
-| AST (comparison) | F1=0.951 |
-| CLAP (comparison) | F1=0.955 |
+| `02_finetune.ipynb` | Table 2 — detection results (5-fold CV on ESC-50) |
+| `06_model_comparison.ipynb` | Table 4 — AST/CLAP comparison (baseline read from `results/zeroshot_baseline.json`) |
+| `07_verify_and_fix.ipynb` | Table 3 and Sect. 3.7 statistics (bootstrap CI, zero-shot baseline, Wilcoxon test); Table 5 — localization over all 120 trials (per-trial CSVs) |
+| `08_mps_validation_fixed.ipynb` | MPS SLAM validation reported in the Table 5 caption and Sect. 3.6 |
+| `09_latency.ipynb` | Table 6 — measured pipeline latency |
 
----
+## Results files
 
-## Setup
+| File | Contents |
+|---|---|
+| `esc50_results.json` | Per-tier detection metrics (Table 2) |
+| `cv_predictions.npz` | Pooled cross-validation predictions and per-fold F1 |
+| `zeroshot_baseline.json` | Zero-shot baseline per tier/fold + Wilcoxon test (Table 3, Sect. 3.7) |
+| `phase1_trials.csv`, `studio_trials.csv` | Per-trial localization results for all 120 recordings |
+| `localization_stats.json` | Per-angle and overall MAE / within-15° (Table 5) |
+| `recording_manifest.json` | 120/120 design coverage; the 9 excluded pilot recordings |
+| `mps_results.csv`, `mps_summary.json` | Per-session MPS SLAM validation (notebook 08) |
+| `latency.json` | Component latency measurements (Table 6) |
+| `model_comparison.json` | Macro F1 of baseline, ESAS, AST, and CLAP (Table 4) |
+| `final_numbers.json` | Consolidated summary of every manuscript statistic |
 
-```bash
-git clone https://github.com/Dr-Afshan/esas-aria-gen2.git
-cd esas-aria-gen2
-python3 -m venv esas_env
-source esas_env/bin/activate
-pip install -r requirements.txt
-```
+## Notes
 
-Set `BASE` in each notebook to your local project path.
-
----
-
-## Notebooks
-
-Run in order:
-
-| Notebook | Description | Requires |
-|---|---|---|
-| 01_download_models | Download PANNs checkpoint | Internet |
-| 02_finetune | Fine-tune on ESC-50, F1=0.921 | ESC-50 dataset |
-| 03_statistics | Bootstrap CI and Wilcoxon test | Notebook 02 |
-| 04_mps_validation | MPS SLAM validation | VRS recordings |
-| 05_direction_from_vrs | GCC-PHAT localization, MAE=5.5 deg | VRS recordings |
-| 06_model_comparison | AST and CLAP comparison | Notebook 02 + transformers |
-
-Notebooks 01, 02, 03, and 06 run on the public ESC-50 dataset.
-Notebooks 04 and 05 require Aria Gen 2 VRS recordings (available on request).
-
----
-
-## Structure
-
-```
-esas/
-  detection.py          PANNs CNN14 sound detection
-  localization.py       GCC-PHAT direction estimation
-  sound_alert_system.py end-to-end pipeline
-
-demo/
-  esas_live.py          live demo (--demo or --vrs modes)
-  aria_direction.py     direction from a VRS file
-  extract_audio.py      export VRS audio to WAV
-```
-
----
-
-## Demo
-
-```bash
-# Demo mode — no hardware needed
-python demo/esas_live.py --demo
-
-# Replay a recording
-python demo/esas_live.py --vrs /path/to/recording.vrs
-```
-
-Note: Live streaming from Aria Gen 2 is not supported on macOS with SDK 2.2.0.
-
----
-
-## Data
-
-Recordings are in Aria Gen 2 VRS format and available on request.
-ESC-50: https://github.com/karoldvl/ESC-50
-
----
-
-## Citation
-
-```bibtex
-@article{hashmi2026esas,
-  title  = {{ESAS}: An Egocentric Environmental Sound Alerting System
-             for Deaf and Hard-of-Hearing Users Using Wearable {AR} Glasses},
-  author = {Hashmi, Afshan},
-  year   = {2026},
-  note   = {Under review}
-}
-```
+- Two sessions (`ophon90_2`, `studio_fire-90_2`) have no MPS trajectory output; their audio is analyzed normally for localization. MPS validation therefore covers 118 of 120 sessions, all of which met quality thresholds.
+- The 9 pilot recordings (`Fire0*`, `Horn0*`, `Ofire0_4`) are excluded from all analyses and listed in `recording_manifest.json`.
+- Earlier notebooks 03 and 04 are superseded by 07 and 08, which analyze the complete 120-trial dataset.
 
 ## License
 
