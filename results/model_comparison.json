@@ -1,6 +1,0 @@
-{
-  "PANNs CNN14 (no fine-tuning)": 0.706,
-  "PANNs CNN14 (ESAS)": 0.921,
-  "AST (fine-tuned)": 0.951,
-  "CLAP (fine-tuned)": 0.955
-}
